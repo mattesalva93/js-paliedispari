@@ -1,17 +1,29 @@
 //definisco una funzione che genera un numero casuale tra 1 e 5, 
-//somma 2 numeri e ne stabilisce il pari e dispari;
+function randomValue (){
+    let randomNumber = Math.floor(Math.random()*5 +1);
+    return randomNumber;
+}
 
-function even_odd (num1, num2){
-    num2 = Math.floor(Math.random()*5 +1);
-    console.log(num2);
-    let sum = 0;
-    sum = (num1 + num2);
-    if (sum%2 == 0){
+//somma 2 numeri e ne stabilisce il pari e dispari;
+function getPariDispari(numero){
+    if (numero%2==0){
+        return "pari";
+    }else{
+        return "dispari";
+    }
+}
+
+//funzione che prende due valori e decreta se pari o dispari in base alle scelte
+function getRisultato(decisione, pcNumber, decisione2){
+    let somma = pcNumber + decisione2;
+    let sommaPariDispari = getPariDispari(somma);
+    if (decisione == sommaPariDispari){
         return true;
     }else{
         return false;
     }
 }
+
 //faccio scegliere all'utente tra pari e dispari e ne ricavo l'informazione con un evento sul click di "scelto"
 let scelto = document.getElementById("choiceBtn");
 
@@ -48,10 +60,15 @@ scelto.addEventListener("click", function(){
 
         //vado a creare un nuovo elemento h1 che farà comparire il numero scelto dal pc
         let numeroPC = document.createElement("h1");
-
+        
         numeroPC.setAttribute("class", "col-12 text-center")
 
         document.body.appendChild(numeroPC);
+
+        let pcNumber = randomValue();
+        
+        numeroPC.innerHTML = pcNumber;
+
 
         //vado a creare un nuovo elemento h1 che farà comparire l'esito
         let esitofinale = document.createElement("h1");
@@ -60,8 +77,17 @@ scelto.addEventListener("click", function(){
 
         document.body.appendChild(esitofinale);
 
+
+
         //applico la mia function alle due possibili scelte effettuate dall'utente
-        if  (decisione = "pari"){
+        if (getRisultato(decisione, pcNumber, decisione2)){
+            esitofinale.innerHTML += "TU! HAI VINTO";
+
+        }else{
+            esitofinale.innerHTML += "TU! HAI PERSO!";
+        }
+        /*
+        if  (decisione = "Pari"){
             if (even_odd(decisione2)){
                 console.log("Pari!");
                 esitofinale.innerHTML += "TU! HAI VINTO";
@@ -77,6 +103,6 @@ scelto.addEventListener("click", function(){
                 console.log("Dispari!");
                 esitofinale.innerHTML += "TU! HAI VINTO";
             }
-        }
+        }*/
     });
-}); 
+});
